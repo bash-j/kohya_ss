@@ -814,6 +814,15 @@ def train_model(
                 str(mixed_precision),
             ]
 
+            # Add VAE path if provided (especially for Flux models)
+            if flux1_checkbox and ae:
+                 if validate_model_path(ae):
+                    run_cmd.extend(["--vae", rf"{ae}"])
+                    # add --is_flux
+                    run_cmd.append("--is_flux")
+                 else:
+                     log.warning("Flux AE path is invalid, not passing --vae argument.")
+
             # Conditional flags
             if full_path:
                 run_cmd.append("--full_path")
@@ -1305,6 +1314,7 @@ def finetune_tab(
                 with gr.Group(elem_id="basic_tab"):
                     basic_training = BasicTraining(
                         learning_rate_value=1e-5,
+                        lr_warmup_value=10,
                         finetuning=True,
                         sdxl_checkbox=source_model.sdxl_checkbox,
                         config=config,

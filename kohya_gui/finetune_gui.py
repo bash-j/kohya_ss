@@ -243,6 +243,8 @@ def save_configuration(
     double_blocks_to_swap,
     mem_eff_save,
     apply_t5_attn_mask,
+    train_double_block_indices,
+    train_single_block_indices
 ):
     # Get list of function parameters and values
     parameters = list(locals().items())
@@ -459,6 +461,8 @@ def open_configuration(
     double_blocks_to_swap,
     mem_eff_save,
     apply_t5_attn_mask,
+    train_double_block_indices,
+    train_single_block_indices,
     training_preset,
 ):
     # Get list of function parameters and values
@@ -681,6 +685,8 @@ def train_model(
     double_blocks_to_swap,
     mem_eff_save,
     apply_t5_attn_mask,
+    train_double_block_indices,
+    train_single_block_indices,
 ):
     # Get list of function parameters and values
     parameters = list(locals().items())
@@ -1138,6 +1144,12 @@ def train_model(
         "double_blocks_to_swap": double_blocks_to_swap if flux1_checkbox else None,
         "mem_eff_save": mem_eff_save if flux1_checkbox else None,
         "apply_t5_attn_mask": apply_t5_attn_mask if flux1_checkbox else None,
+        "train_double_block_indices": (
+            train_double_block_indices if flux1_checkbox else None
+        ),
+        "train_single_block_indices": (
+            train_single_block_indices if flux1_checkbox else None
+        ),
     }
 
     # Given dictionary `config_toml_data`
@@ -1565,6 +1577,8 @@ def finetune_tab(
             flux1_training.double_blocks_to_swap,
             flux1_training.mem_eff_save,
             flux1_training.apply_t5_attn_mask,
+            flux1_training.train_double_block_indices,
+            flux1_training.train_single_block_indices,
         ]
 
         configuration.button_open_config.click(

@@ -255,7 +255,7 @@ class flux1Training:
                 with gr.Accordion(
                     "Blocks to train",
                     open=True,
-                    visible=False if finetuning else True,
+                    visible=True,
                     elem_classes=["flux1_blocks_to_train_background"],
                 ):
                     with gr.Row():
